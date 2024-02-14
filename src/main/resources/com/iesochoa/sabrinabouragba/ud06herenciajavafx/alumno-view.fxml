@@ -11,6 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <HBox fx:id="hbDatos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesochoa.sabrinabouragba.ud06herenciajavafx.controllers.AlumnoController">
    <children>
@@ -21,9 +22,17 @@
                   <Image url="@images/logo_direccion-1.png" />
                </image>
                <VBox.margin>
-                  <Insets bottom="20.0" />
+                  <Insets bottom="10.0" />
                </VBox.margin>
             </ImageView>
+            <Label prefHeight="31.0" prefWidth="98.0" text="Alumnos">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="60.0" />
+               </VBox.margin>
+            </Label>
             <Label fx:id="dni" text="DNI">
                <VBox.margin>
                   <Insets left="90.0" />
@@ -66,12 +75,12 @@
             </ComboBox>
             <Button fx:id="btGuardar" mnemonicParsing="false" onAction="#onClickGuardar" text="Guardar">
                <VBox.margin>
-                  <Insets left="70.0" top="30.0" />
+                  <Insets left="70.0" top="20.0" />
                </VBox.margin>
             </Button>
          </children>
       </VBox>
-      <TableView fx:id="tvAlumnos" prefHeight="400.0" prefWidth="379.0">
+      <TableView fx:id="tvAlumnos" maxHeight="400.0" maxWidth="379.0">
         <columns>
           <TableColumn fx:id="tcDni" prefWidth="75.0" text="DNI" />
           <TableColumn fx:id="tcNombre" minWidth="20.0" prefWidth="168.79998016357422" text="Nombre" />

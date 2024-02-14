@@ -11,7 +11,7 @@ public class IESOchoaApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(IESOchoaApplication.class.getResource("alumno-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 620, 450);
+        Scene scene = new Scene(fxmlLoader.load(), 620, 430);
         stage.setTitle("Datos Alumnado");
         stage.setScene(scene);
         stage.show();
