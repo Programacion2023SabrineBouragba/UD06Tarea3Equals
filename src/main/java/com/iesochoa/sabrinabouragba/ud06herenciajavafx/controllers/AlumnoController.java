@@ -58,52 +58,65 @@ public class AlumnoController implements Initializable{
     private VBox vbIntroducir;
 
     private ObservableList<Alumno> listaAlumnos;
+
+    //metodo donde le vamos a dar funcion al boton guardar
     @FXML
     void onClickGuardar(ActionEvent event) {
         //si no hay alumno
         Alumno alumno=creaAlumno();
 
-        //si hay alumnos, crear otro
+        //si hay alumnos, añadir el otro
         if (alumno!=null){
             listaAlumnos.add(alumno);
 
-            //limpiar entrada de datos
+            //llamar a metodo limpiar entrada de datos
             limpiaDatos();
         }
     }
 
+    /*metodo donde inicializaremos el controller, i¡donde introduciremos los datos del alumno y el curso que esta
+    * y tambien la tabla donde se veran los alumnos agregados*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //iniciar el curso
         iniciaCbCurso();
+        //iniciar la tabla
         iniciaTableView();
     }
 
 
+    /*metodo donde inicializaremos el curso que cursa el alumno, es decir seleccionar el modulo en el que esta
+    * y guardarlo*/
     private void iniciaCbCurso(){
         //recuperamos valores del Enum Curso
         Curso[] cursos= Curso.values();
 
+        //recorremos la clase e iremos almacenando los datos
         for (Curso curso: cursos){
             //los añadimos al combobox
             cbCurso.getItems().add(curso.toString());
         }
 
 
-        // Seleccionamos el primero si hay elementos
+        // Seleccionamos el primero si hay elementos, valor por defecto
         if (cursos.length > 0) {
             cbCurso.setValue(cursos[0].toString()); // o cursos[0].name()
         }
     }
 
+
+    //metodo donde inicializaremos los mensajes de alerta que vamos a utilizar si se introducen datos erroneos
     private void iniciaAlertaError(String mensaje){
         //creamos la alerta de tipo Error
         Alert alert= new Alert(Alert.AlertType.ERROR);
+        //la creamos sin titulo
         alert.setHeaderText(null);
         //mostramos el mensaje
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
 
+    /*metodo donde vamos creando el alumno*/
     private Alumno creaAlumno(){
 
         //obtenemos del text field los datos introducidos
@@ -112,26 +125,27 @@ public class AlumnoController implements Initializable{
         String dni= tfDni.getText();
         //creamos el objeto curso, y obtenemos los datos seleccionamos en el combobox
         Curso curso=Curso.valueOf(cbCurso.getValue());
-        //guardar el entero introducido como edad
+        //guardar la edad
         String edadString= tfEdad.getText();
         int edad=0;
 
         //creamos el alumno inicialemnte null
         Alumno alumno=null;
         //comprobamos que los datos introducidos esten correctos
+        //si el dni esta vacio o incorrecto
         if (dni.isEmpty() || !Persona.esCorrectoNIF(dni)){
-            if (dni.isEmpty()){
+            if (dni.isEmpty()){ //campo vacio
                 iniciaAlertaError("El campo DNI no puede estar vacío");
-                //ponemos un foco en el textField DNI
+                //ponemos un cursor en el textField DNI
                 tfDni.requestFocus();
-            } else if (!Persona.esCorrectoNIF(dni)) {
+            } else if (!Persona.esCorrectoNIF(dni)) {   //campo incorrecto
                 iniciaAlertaError("El DNI es incorrecto");
-                //ponemos un foco en el textField DNI
+                //ponemos un foco/cursor en el textField DNI
                 tfDni.requestFocus();
             }
 
             //hacmos lo mismo en el campo nombre, comprobamos los datos
-        } else if (nombre.isEmpty()) {
+        } else if (nombre.isEmpty()) {  //campo vacio
             iniciaAlertaError("El campo Nombre no puede estar vacío");
             tfNombre.requestFocus();
 
@@ -151,14 +165,15 @@ public class AlumnoController implements Initializable{
 //        }
 //        alumno= new Alumno(dni, nombre, edad, curso);
 
-        }else if(tfEdad.getText().isEmpty()){
+            //comprobamos que el campo no este vacio
+        }else if(tfEdad.getText().isEmpty()){   //si esta vacio
             tfEdad.requestFocus();
             iniciaAlertaError("El campo Edad no puede ser estar vacío");
-        }else{
+        }else{  //sino comproamos que sea entero(edad>0)
             try{    //bloque que controla excepciones
-                //pasa el texto introducido a integer entero
+                //pasa el texto introducido a integer
                 edad= Integer.parseInt(tfEdad.getText());
-                //creamos el alumno
+                //creamos el alumno con los datos itroducidos hasta ahora, ya que estan comprobados y bien
                 alumno= new Alumno(dni, nombre, edad, curso);
             }catch (NumberFormatException e){   //si no se cumple la condicion de ser entero
                 //mensaje de error
@@ -167,9 +182,11 @@ public class AlumnoController implements Initializable{
                 tfEdad.requestFocus();
             }
         }
+        //devuelvo el alumno
         return alumno;
     }
 
+    //metodo donde inicializamos la vista de la tabla de los alumnos que vamos creando
     private void iniciaTableView(){
         //iniciamos lista alumnos en la tabla
         listaAlumnos= FXCollections.observableArrayList();
@@ -184,6 +201,7 @@ public class AlumnoController implements Initializable{
         tvAlumnos.setItems(listaAlumnos);
     }
 
+    //metodo donde vaciamos estos campos, para facilitar la entrada de datos nueva
     private void limpiaDatos(){
         tfEdad.clear();
         tfNombre.clear();
