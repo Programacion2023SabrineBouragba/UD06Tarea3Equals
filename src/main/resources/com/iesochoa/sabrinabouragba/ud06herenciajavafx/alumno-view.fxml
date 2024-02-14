@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox fx:id="hbDatos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesochoa.sabrinabouragba.ud06herenciajavafx.controllers.AlumnoController">
+   <children>
+      <VBox fx:id="vbIntroducir" maxHeight="400.0" maxWidth="258.0" minWidth="200.0" prefHeight="400.0" prefWidth="222.0">
+         <children>
+            <ImageView fitHeight="62.0" fitWidth="220.0">
+               <image>
+                  <Image url="@images/logo_direccion-1.png" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </ImageView>
+            <Label fx:id="dni" text="DNI">
+               <VBox.margin>
+                  <Insets left="90.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfDni" maxHeight="30.0" maxWidth="100.0" prefHeight="0.0" prefWidth="0.0" promptText="DNI">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="50.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Nombre">
+               <VBox.margin>
+                  <Insets left="80.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfNombre" maxHeight="30.0" maxWidth="150.0" promptText="Nombre">
+               <VBox.margin>
+                  <Insets bottom="20.0" left="30.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Edad">
+               <VBox.margin>
+                  <Insets left="90.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfEdad" maxHeight="30.0" maxWidth="100.0" prefHeight="0.0" promptText="Edad">
+               <VBox.margin>
+                  <Insets bottom="20.0" left="50.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Curso">
+               <VBox.margin>
+                  <Insets left="90.0" />
+               </VBox.margin>
+            </Label>
+            <ComboBox fx:id="cbCurso" prefWidth="100.0">
+               <VBox.margin>
+                  <Insets left="50.0" />
+               </VBox.margin>
+            </ComboBox>
+            <Button fx:id="btGuardar" mnemonicParsing="false" onAction="#onClickGuardar" text="Guardar">
+               <VBox.margin>
+                  <Insets left="70.0" top="30.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <TableView fx:id="tvAlumnos" prefHeight="400.0" prefWidth="379.0">
+        <columns>
+          <TableColumn fx:id="tcDni" prefWidth="75.0" text="DNI" />
+          <TableColumn fx:id="tcNombre" minWidth="20.0" prefWidth="168.79998016357422" text="Nombre" />
+            <TableColumn fx:id="tcEdad" prefWidth="61.60003662109375" text="Edad" />
+            <TableColumn fx:id="tcCurso" prefWidth="74.40008544921875" text="Curso" />
+        </columns>
+      </TableView>
+   </children>
+</HBox>

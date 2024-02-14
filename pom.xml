@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.iesochoa.sabrinabouragba.ud06herenciajavafx/com.iesochoa.sabrinabouragba.ud06herenciajavafx.HelloApplication
+                                com.iesochoa.sabrinabouragba.ud06herenciajavafx/com.iesochoa.sabrinabouragba.ud06herenciajavafx.IESOchoaApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
