@@ -125,7 +125,7 @@ public class ProfesorController implements Initializable{
         String edadString= tfEdad.getText();
         int edad=0;
 
-        //creamos el alumno inicialemnte null
+        //creamos el profesor inicialemnte null
         Profesor profesor=null;
         //comprobamos que los datos introducidos esten correctos
         //si el dni esta vacio o incorrecto
@@ -162,6 +162,7 @@ public class ProfesorController implements Initializable{
 //        alumno= new Alumno(dni, nombre, edad, curso);
 
             //comprobamos que el campo no este vacio
+
         }else if(tfEdad.getText().isEmpty()){   //si esta vacio
             tfEdad.requestFocus();
             iniciaAlertaError("El campo Edad no puede ser estar vacío");
@@ -169,7 +170,7 @@ public class ProfesorController implements Initializable{
             try{    //bloque que controla excepciones
                 //pasa el texto introducido a integer
                 edad= Integer.parseInt(tfEdad.getText());
-                //creamos el alumno con los datos itroducidos hasta ahora, ya que estan comprobados y bien
+                //creamos el profesor con los datos itroducidos hasta ahora, ya que estan comprobados y bien
                 profesor= new Profesor(dni, nombre, edad);
             }catch (NumberFormatException e){   //si no se cumple la condicion de ser entero
                 //mensaje de error
@@ -178,7 +179,7 @@ public class ProfesorController implements Initializable{
                 tfEdad.requestFocus();
             }
         }
-        //devuelvo el alumno
+        //devuelvo el profesor
         return profesor;
     }
 
