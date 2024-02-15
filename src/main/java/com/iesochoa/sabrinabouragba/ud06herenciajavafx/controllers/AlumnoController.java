@@ -2,7 +2,7 @@ package com.iesochoa.sabrinabouragba.ud06herenciajavafx.controllers;
 import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Alumno;
 import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Curso;
 import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Persona;
-import javafx.beans.Observable;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,7 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
-import java.util.ArrayList;
+
 import java.util.ResourceBundle;
 
 public class AlumnoController implements Initializable{
