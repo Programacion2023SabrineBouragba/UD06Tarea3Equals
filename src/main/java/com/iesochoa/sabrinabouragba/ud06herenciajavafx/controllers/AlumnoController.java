@@ -69,11 +69,28 @@ public class AlumnoController implements Initializable{
         //si hay alumnos, añadir el otro
         if (alumno!=null){
 
-            //si existe el alumno que queremos añdir, no lo hace
+            //si no existe el alumno que queremos añdir
             if (!listaAlumnos.contains(alumno)){
                 listaAlumnos.add(alumno);
                 //llamar a metodo limpiar entrada de datos
                 limpiaDatos();
+            }else{  //si existe el alumno
+                //crear alerta de tipo cinfirmacion
+                Alert alerta= new Alert(Alert.AlertType.CONFIRMATION);
+                alerta.setTitle("Confirmación");
+                alerta.setHeaderText("Quieres modificar el alumno con DNI \n" + alumno.getDni());
+
+                //configurar botones si o no
+                alerta.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+                //mostrar la alerta y esperar respuesta
+                alerta.showAndWait().ifPresent(response ->{
+                    if (response== ButtonType.YES){
+//                        System.out.println("Usuario seleccionó 'Si'");
+                        //llamamos al metodo que sustituira el alumno
+                        sustituyeAlumnos(alumno);
+                    }
+                });
             }
 
         }
@@ -234,4 +251,16 @@ public class AlumnoController implements Initializable{
     }
 
 
+    /**metodo para sustituir alumno
+     *@param alumno para sustituirlo */
+    private void sustituyeAlumnos(Alumno alumno){
+        //buscamos posicion del alumno indicado
+        int indice=listaAlumnos.indexOf(alumno);
+
+        //si existe en la lista
+        if (indice!=-1){
+            //sustituimos alumno
+            listaAlumnos.set(indice, alumno);
+        }
+    }
 }
