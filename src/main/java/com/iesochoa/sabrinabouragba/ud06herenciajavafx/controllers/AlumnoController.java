@@ -78,12 +78,17 @@ public class AlumnoController implements Initializable{
     * y tambien la tabla donde se veran los alumnos agregados*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
+    public void initialize(ObservableList<Alumno> listaAlumnos) {
         //iniciar el curso
         iniciaCbCurso();
+        //asignamos la lista
+        this.listaAlumnos=listaAlumnos;
         //iniciar la tabla
         iniciaTableView();
     }
-
 
     /*metodo donde inicializaremos el curso que cursa el alumno, es decir seleccionar el modulo en el que esta
     * y guardarlo*/
@@ -189,7 +194,7 @@ public class AlumnoController implements Initializable{
     //metodo donde inicializamos la vista de la tabla de los alumnos que vamos creando
     private void iniciaTableView(){
         //iniciamos lista alumnos en la tabla
-        listaAlumnos= FXCollections.observableArrayList();
+//        listaAlumnos= FXCollections.observableArrayList();    no hace falta crear la lista porque lo hemos creado en el metodo initialize(Observablelist)
 
         //asociamos las columnas con los datos indicando el nombre de la clase
         tcNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
