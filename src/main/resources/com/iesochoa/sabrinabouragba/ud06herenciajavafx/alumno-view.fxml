@@ -80,7 +80,7 @@
             </Button>
          </children>
       </VBox>
-      <TableView fx:id="tvAlumnos" maxHeight="400.0" maxWidth="379.0">
+      <TableView fx:id="tvAlumnos" maxHeight="400.0" maxWidth="379.0" onMouseClicked="#onClickTvAlumnos">
         <columns>
           <TableColumn fx:id="tcDni" prefWidth="75.0" text="DNI" />
           <TableColumn fx:id="tcNombre" minWidth="20.0" prefWidth="168.79998016357422" text="Nombre" />

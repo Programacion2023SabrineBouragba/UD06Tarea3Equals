@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -71,6 +72,21 @@ public class AlumnoController implements Initializable{
 
             //llamar a metodo limpiar entrada de datos
             limpiaDatos();
+        }
+    }
+
+    //cuando el usuario seleccione un alumno, sus vuelven a aparecer en los campos
+    @FXML
+    void onClickTvAlumnos(MouseEvent event) {
+        //buscamos el alumno seleccionado
+        Alumno alumno=tvAlumnos.getSelectionModel().getSelectedItem();
+
+        //si hay alumnos seleccionado, mostrar datos
+        if (alumno!=null){
+            tfDni.setText(alumno.getDni());
+            tfNombre.setText(alumno.getNombre());
+            tfEdad.setText(String.valueOf(alumno.getEdad()));
+            cbCurso.setValue(alumno.getCurso().toString());
         }
     }
 
