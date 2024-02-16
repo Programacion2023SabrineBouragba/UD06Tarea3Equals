@@ -68,10 +68,14 @@ public class AlumnoController implements Initializable{
 
         //si hay alumnos, añadir el otro
         if (alumno!=null){
-            listaAlumnos.add(alumno);
 
-            //llamar a metodo limpiar entrada de datos
-            limpiaDatos();
+            //si existe el alumno que queremos añdir, no lo hace
+            if (!listaAlumnos.contains(alumno)){
+                listaAlumnos.add(alumno);
+                //llamar a metodo limpiar entrada de datos
+                limpiaDatos();
+            }
+
         }
     }
 

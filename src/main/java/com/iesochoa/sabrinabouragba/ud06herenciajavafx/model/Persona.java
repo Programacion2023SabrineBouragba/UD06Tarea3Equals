@@ -1,5 +1,7 @@
 package com.iesochoa.sabrinabouragba.ud06herenciajavafx.model;
 
+import java.util.Objects;
+
 public class Persona {
     protected String dni;
     protected String nombre;
@@ -84,6 +86,24 @@ public class Persona {
             }
 
         }
+    }
+
+    /**metodo comprueba si los dni son iguales
+     * @param o objeto con el que vamos a comprobar
+     * @return true si el objeto "o" es igual a el objeto Persona*/
+    @Override
+    public boolean equals(Object o){
+        //si el elemento seleccionado es igual al objeo o
+        if (this==o) return true;
+
+        //si el objeto es null or pertenece a otra clase
+        if (o==null||getClass()!= o.getClass()) return false;
+
+        //hace que el objeto o pertenezca a la clase Persona
+        Persona persona=(Persona) o;
+
+        //comprueba que sean diferentes el dni del objeto actual, con el dni del objeto o
+        return Objects.equals(dni, persona.dni);
     }
 
 }
