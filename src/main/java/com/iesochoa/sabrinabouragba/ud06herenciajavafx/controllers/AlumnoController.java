@@ -144,6 +144,8 @@ public class AlumnoController implements Initializable{
             tfNombre.setText(alumno.getNombre());
             tfEdad.setText(String.valueOf(alumno.getEdad()));
             cbCurso.setValue(alumno.getCurso().toString());
+        }else {
+            iniciaAlertaError("No hay Alumnos guardados aún.");
         }
     }
 

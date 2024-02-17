@@ -131,10 +131,20 @@ public class ProfesorController implements Initializable{
         }
     }
 
-    /*metodo cuando seleccionamos un elemneto de la lista*/
+    /*metodo cuando seleccionamos un elemneto de la lista, nos salgan los datos*/
     @FXML
-    void onClickProfesores(MouseEvent event) {
+    void onClickTvProfesores(MouseEvent event) {
+        //buscamos el elemento seleccionado
+        Profesor profesor= tvProfesores.getSelectionModel().getSelectedItem();
 
+        //si hay profesor en donde hemos seleccionado, mostrar datos
+        if (profesor!=null){
+            tfDni.setText(profesor.getDni());
+            tfNombre.setText(profesor.getNombre());
+            tfEdad.setText(String.valueOf(profesor.getEdad()));
+        }else {
+            iniciaAlertaError("No hay Profesores aún.");
+        }
     }
 
 
