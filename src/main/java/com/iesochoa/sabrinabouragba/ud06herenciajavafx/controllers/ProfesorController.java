@@ -130,6 +130,14 @@ public class ProfesorController implements Initializable{
             iniciaAlertaError("El DNI introducido es incorrecto.");
         }
     }
+
+    /*metodo cuando seleccionamos un elemneto de la lista*/
+    @FXML
+    void onClickProfesores(MouseEvent event) {
+
+    }
+
+
     /*metodo donde inicializaremos el controller, i¡donde introduciremos los datos del alumno y el curso que esta
     * y tambien la tabla donde se veran los alumnos agregados*/
     @Override
@@ -167,7 +175,6 @@ public class ProfesorController implements Initializable{
         String dni= tfDni.getText();
         //guardar la edad
         String edadString= tfEdad.getText();
-        int edad=0;
 
         //creamos el profesor inicialemnte null
         Profesor profesor=null;
@@ -185,21 +192,29 @@ public class ProfesorController implements Initializable{
             }
 
             //hacmos lo mismo en el campo nombre, comprobamos los datos
-        } else if (nombre.isEmpty()) {  //campo vacio
-            iniciaAlertaError("El campo Nombre no puede estar vacío");
-            tfNombre.requestFocus();
-
+        } else if (nombre.isEmpty()|| !nombre.matches("[a-zA-Z]+")) {  //campo vacio
+            if (nombre.isEmpty()){
+                iniciaAlertaError("El campo Nombre no puede estar vacío");
+                tfNombre.requestFocus();
+            }else if (!nombre.matches("[a-zA-Z]+")){
+                iniciaAlertaError("El campo Nombre no puede contener caracteres que no sean letra.");
+                tfNombre.requestFocus();
+            }
 
             //comprobamos que el campo no este vacio
-
-        }else if(tfEdad.getText().isEmpty()){   //si esta vacio
-            tfEdad.requestFocus();
-            iniciaAlertaError("El campo Edad no puede ser estar vacío");
+        }else if(edadString.isEmpty()|| edadString.matches("[a-zA-Z]+")){   //si esta vacio
+            if (edadString.isEmpty()){
+                tfEdad.requestFocus();
+                iniciaAlertaError("El campo Edad no puede estar vacío");
+            }else if (edadString.matches("[a-zA-Z]+")){
+                tfEdad.requestFocus();
+                iniciaAlertaError("El campo Edad no puede contener letras");
+            }
 
         }else{  //sino comproamos que sea entero(edad>0)
             try{    //bloque que controla excepciones
-                //pasa el texto introducido a integer
-                edad= Integer.parseInt(tfEdad.getText());
+                //pasar de string a int la edad
+                int edad= Integer.parseInt(tfEdad.getText());
                 //creamos el profesor con los datos itroducidos hasta ahora, ya que estan comprobados y bien
                 profesor= new Profesor(dni, nombre, edad);
             }catch (NumberFormatException e){   //si no se cumple la condicion de ser entero

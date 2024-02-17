@@ -205,7 +205,6 @@ public class AlumnoController implements Initializable{
         Curso curso=Curso.valueOf(cbCurso.getValue());
         //guardar la edad
         String edadString= tfEdad.getText();
-        int edad=0;
 
         //creamos el alumno inicialemnte null
         Alumno alumno=null;
@@ -223,34 +222,29 @@ public class AlumnoController implements Initializable{
             }
 
             //hacmos lo mismo en el campo nombre, comprobamos los datos
-        } else if (nombre.isEmpty()) {  //campo vacio
-            iniciaAlertaError("El campo Nombre no puede estar vacío");
-            tfNombre.requestFocus();
-
-            //verificamos que la edad no este vacia
-//        } else if (edadString.isEmpty()) {
-//                iniciaAlertaError("El campo Edad no puede ser estar vacío");
-//                tfEdad.requestFocus();
-//        }else{  //si no esta vacía, comprobamos q no sea menor que 0, convirtiendolo en integer
-//            edad = Integer.parseInt(edadString);
-//
-//            if (edad<0){
-//                iniciaAlertaError("El campo Edad no puede ser menor que 0");
-//                tfEdad.requestFocus();
-//            }
-//
-//
-//        }
-//        alumno= new Alumno(dni, nombre, edad, curso);
+        } else if (nombre.isEmpty()|| !nombre.matches("[a-zA-Z]+")) {  //campo vacio
+            if (nombre.isEmpty()){
+                iniciaAlertaError("El campo Nombre no puede estar vacío");
+                tfNombre.requestFocus();
+            }else if (!nombre.matches("[a-zA-Z]+")){
+                iniciaAlertaError("El campo Nombre no puede contener caracteres que no sean letra.");
+                tfNombre.requestFocus();
+            }
 
             //comprobamos que el campo no este vacio
-        }else if(tfEdad.getText().isEmpty()){   //si esta vacio
-            tfEdad.requestFocus();
-            iniciaAlertaError("El campo Edad no puede ser estar vacío");
+        }else if(edadString.isEmpty()|| edadString.matches("[a-zA-Z]+")){   //si esta vacio
+            if (edadString.isEmpty()){
+                tfEdad.requestFocus();
+                iniciaAlertaError("El campo Edad no puede estar vacío");
+            }else if (edadString.matches("[a-zA-Z]+")){
+                tfEdad.requestFocus();
+                iniciaAlertaError("El campo Edad no puede contener letras");
+            }
+
         }else{  //sino comproamos que sea entero(edad>0)
             try{    //bloque que controla excepciones
-                //pasa el texto introducido a integer
-                edad= Integer.parseInt(tfEdad.getText());
+                //pasar de string a int la edad
+                int edad= Integer.parseInt(tfEdad.getText());
                 //creamos el alumno con los datos itroducidos hasta ahora, ya que estan comprobados y bien
                 alumno= new Alumno(dni, nombre, edad, curso);
             }catch (NumberFormatException e){   //si no se cumple la condicion de ser entero
