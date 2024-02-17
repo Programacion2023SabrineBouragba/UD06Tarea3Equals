@@ -1,4 +1,5 @@
 package com.iesochoa.sabrinabouragba.ud06herenciajavafx.controllers;
+import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Alumno;
 import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Profesor;
 import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Curso;
 import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Persona;
@@ -9,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -19,6 +21,8 @@ public class ProfesorController implements Initializable{
 
     @FXML
     private Button btGuardar;
+    @FXML
+    private Button btBorrar;
 
     @FXML
     private ComboBox<String> cbCurso;
@@ -57,18 +61,44 @@ public class ProfesorController implements Initializable{
     //metodo donde le vamos a dar funcion al boton guardar
     @FXML
     void onClickGuardar(ActionEvent event) {
-        //si no hay alumno
+        //si no hay profesor
         Profesor profesor=crearProfesor();
 
         //si hay alumnos, añadir el otro
         if (profesor!=null){
-            listaProfesores.add(profesor);
 
-            //llamar a metodo limpiar entrada de datos
-            limpiaDatos();
+            //si no existe el profesor que queremos añdir
+            if (!listaProfesores.contains(profesor)){
+                listaProfesores.add(profesor);
+                //llamar a metodo limpiar entrada de datos
+                limpiaDatos();
+            }else{  //si existe el profesor
+                //crear alerta de tipo confirmacion
+                Alert alerta= new Alert(Alert.AlertType.CONFIRMATION);
+                alerta.setTitle("Confirmación");
+                alerta.setHeaderText("Quieres modificar el Profesor con DNI \n" + profesor.getDni());
+
+                //configurar botones si o no
+                alerta.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+                //mostrar la alerta y esperar respuesta
+                alerta.showAndWait().ifPresent(response ->{
+                    if (response== ButtonType.YES){
+//                        System.out.println("Usuario seleccionó 'Si'");
+                        //llamamos al metodo que sustituira el profesor
+                        sustituyeProfesores(profesor);
+                    }
+                });
+            }
+
         }
     }
 
+
+    @FXML
+    void onClickBorrar(MouseEvent event) {
+
+    }
     /*metodo donde inicializaremos el controller, i¡donde introduciremos los datos del alumno y el curso que esta
     * y tambien la tabla donde se veran los alumnos agregados*/
     @Override
@@ -203,5 +233,16 @@ public class ProfesorController implements Initializable{
         tfDni.clear();
     }
 
+    /*metodo que sustituye o cambia la informacion del profesor*/
+    private void sustituyeProfesores(Profesor profesor){
+        //buscamos posicion del profesor
+        int indice=listaProfesores.indexOf(profesor);
+
+        //si existe en la lista
+        if (listaProfesores.contains(profesor)){
+            //cambiamos en el indice, el profesor
+            listaProfesores.set(indice, profesor);
+        }
+    }
 
 }
