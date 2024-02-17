@@ -96,6 +96,41 @@ public class AlumnoController implements Initializable{
         }
     }
 
+    /*metodo que elimina el alumno con dni indicado por el usuario*/
+    @FXML
+    void onClickBorrar(MouseEvent event) {
+        //guardo el texto del campo dni
+        String dni= tfDni.getText();
+        //si es correcto el dni introducido
+        if (Persona.esCorrectoNIF(dni)){
+            //creamos alumno provisional
+            Alumno alumno=new Alumno(dni, "", 0,Curso.DAM);
+            //si el alumno indicado esta en la lista
+            if (listaAlumnos.contains(alumno)){
+                //crear alerta de tipo cinfirmacion
+                Alert alerta= new Alert(Alert.AlertType.CONFIRMATION);
+                alerta.setTitle("Confirmación");
+                alerta.setHeaderText("Quieres eliminar el alumno con DNI \n" + alumno.getDni());
+
+                //configurar botones si o no
+                alerta.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+                //mostrar la alerta y esperar respuesta
+                alerta.showAndWait().ifPresent(response ->{
+                    if (response== ButtonType.YES){
+//                        System.out.println("Usuario seleccionó 'Si'");
+                        //llamamos al metodo que eliminara el alumno
+                        eliminaAlumno(alumno);
+                    }
+                });
+            }else { //si el dni introducido no esta en la lista
+                iniciaAlertaError("El DNI introducido no pertenece a ningún alumno.");
+            }
+        }else { //si el dni introducido es incorrecto
+            iniciaAlertaError("El DNI introducido es incorrecto");
+        }
+    }
+
     //cuando el usuario seleccione un alumno, sus vuelven a aparecer en los campos
     @FXML
     void onClickTvAlumnos(MouseEvent event) {
@@ -251,7 +286,7 @@ public class AlumnoController implements Initializable{
     }
 
 
-    /**metodo para sustituir alumno
+    /**metodo para sustituir
      *@param alumno para sustituirlo */
     private void sustituyeAlumnos(Alumno alumno){
         //buscamos posicion del alumno indicado
@@ -261,6 +296,19 @@ public class AlumnoController implements Initializable{
         if (indice!=-1){
             //sustituimos alumno
             listaAlumnos.set(indice, alumno);
+        }
+    }
+
+    /**metodo que elimina alumno
+     * @param alumno indicado por usuario*/
+    private void eliminaAlumno(Alumno alumno){
+        //buscamos posicion del alumno indicado
+        int indice=listaAlumnos.indexOf(alumno);
+
+        //si existe en la lista
+        if (indice!=-1){
+            //borramos alumno de la lista
+            listaAlumnos.remove(indice);
         }
     }
 }
