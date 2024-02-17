@@ -1,8 +1,9 @@
 package com.iesochoa.sabrinabouragba.ud06herenciajavafx.controllers;
-import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Alumno;
+
 import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Profesor;
 import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Curso;
 import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Persona;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -95,39 +96,55 @@ public class ProfesorController implements Initializable{
     }
 
 
+    /**metodo para borrar el profesor mediante el dni*/
     @FXML
     void onClickBorrar(MouseEvent event) {
+        //guardo el texto del campo dni
+        String dni= tfDni.getText();
 
+        //comprobamos que el dni es correcto
+        if (Persona.esCorrectoNIF(dni)){
+            //creamos profesor provisional
+            Profesor profesor=new Profesor(dni, "", 0);
+
+            //comprobamos que el dni profesor exista en lista
+            if (listaProfesores.contains(profesor)){
+                //creamos alerta de tipo cinfirmacion
+                Alert alerta= new Alert(Alert.AlertType.CONFIRMATION);
+                alerta.setTitle("Confirmación");
+                alerta.setHeaderText("Quieres eliminar el Profesor con DNI \n" + profesor.getDni());
+
+                //configurar botones si o no
+                alerta.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+                //mostrar la alerta y esperar respuesta
+                alerta.showAndWait().ifPresent(response ->{
+                    if (response== ButtonType.YES){
+                        //llamamos al metodo que eliminara el profesor
+                        borrarProfesor(profesor);
+                    }
+                });
+            }
+
+        }else { //si el dni no es correcto
+            iniciaAlertaError("El DNI introducido es incorrecto.");
+        }
     }
     /*metodo donde inicializaremos el controller, i¡donde introduciremos los datos del alumno y el curso que esta
     * y tambien la tabla donde se veran los alumnos agregados*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //iniciar el curso
-        iniciaCbCurso();
+
+    }
+
+    public void initialize(ObservableList<Profesor> listaProfesores) {
+
+        //asignamos la lista
+        this.listaProfesores=listaProfesores;
         //iniciar la tabla
         iniciaTableView();
     }
 
-
-    /*metodo donde inicializaremos el curso que cursa el alumno, es decir seleccionar el modulo en el que esta
-    * y guardarlo*/
-    private void iniciaCbCurso(){
-        //recuperamos valores del Enum Curso
-        Curso[] cursos= Curso.values();
-
-        //recorremos la clase e iremos almacenando los datos
-        for (Curso curso: cursos){
-            //los añadimos al combobox
-            cbCurso.getItems().add(curso.toString());
-        }
-
-
-        // Seleccionamos el primero si hay elementos, valor por defecto
-        if (cursos.length > 0) {
-            cbCurso.setValue(cursos[0].toString()); // o cursos[0].name()
-        }
-    }
 
 
     //metodo donde inicializaremos los mensajes de alerta que vamos a utilizar si se introducen datos erroneos
@@ -148,8 +165,6 @@ public class ProfesorController implements Initializable{
         String nombre=tfNombre.getText();
         //obtenemos el DNI
         String dni= tfDni.getText();
-        //creamos el objeto curso, y obtenemos los datos seleccionamos en el combobox
-        Curso curso=Curso.valueOf(cbCurso.getValue());
         //guardar la edad
         String edadString= tfEdad.getText();
         int edad=0;
@@ -174,27 +189,13 @@ public class ProfesorController implements Initializable{
             iniciaAlertaError("El campo Nombre no puede estar vacío");
             tfNombre.requestFocus();
 
-            //verificamos que la edad no este vacia
-//        } else if (edadString.isEmpty()) {
-//                iniciaAlertaError("El campo Edad no puede ser estar vacío");
-//                tfEdad.requestFocus();
-//        }else{  //si no esta vacía, comprobamos q no sea menor que 0, convirtiendolo en integer
-//            edad = Integer.parseInt(edadString);
-//
-//            if (edad<0){
-//                iniciaAlertaError("El campo Edad no puede ser menor que 0");
-//                tfEdad.requestFocus();
-//            }
-//
-//
-//        }
-//        alumno= new Alumno(dni, nombre, edad, curso);
 
             //comprobamos que el campo no este vacio
 
         }else if(tfEdad.getText().isEmpty()){   //si esta vacio
             tfEdad.requestFocus();
             iniciaAlertaError("El campo Edad no puede ser estar vacío");
+
         }else{  //sino comproamos que sea entero(edad>0)
             try{    //bloque que controla excepciones
                 //pasa el texto introducido a integer
@@ -244,5 +245,17 @@ public class ProfesorController implements Initializable{
             listaProfesores.set(indice, profesor);
         }
     }
+
+    private void borrarProfesor(Profesor profesor){
+        //buscamos posicion del profesor
+        int indice= listaProfesores.indexOf(profesor);
+
+        //si existe en la lista
+        if (listaProfesores.contains(profesor)){
+            //lo borramos
+            listaProfesores.remove(indice);
+        }
+    }
+
 
 }

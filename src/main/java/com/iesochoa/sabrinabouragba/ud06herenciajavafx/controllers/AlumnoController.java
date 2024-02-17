@@ -1,4 +1,5 @@
 package com.iesochoa.sabrinabouragba.ud06herenciajavafx.controllers;
+
 import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Alumno;
 import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Curso;
 import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Persona;
