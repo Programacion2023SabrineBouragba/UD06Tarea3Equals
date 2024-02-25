@@ -4,7 +4,6 @@ import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Alumno;
 import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Curso;
 import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Persona;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,8 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+
 
 import java.net.URL;
 
@@ -21,17 +19,10 @@ import java.util.ResourceBundle;
 
 public class AlumnoController implements Initializable{
 
-    @FXML
-    private Button btGuardar;
 
     @FXML
     private ComboBox<String> cbCurso;
 
-    @FXML
-    private Label dni;
-
-    @FXML
-    private HBox hbDatos;
     @FXML
     private TableView<Alumno> tvAlumnos;
 
@@ -56,8 +47,6 @@ public class AlumnoController implements Initializable{
     @FXML
     private TextField tfNombre;
 
-    @FXML
-    private VBox vbIntroducir;
 
     private ObservableList<Alumno> listaAlumnos;
 
@@ -149,7 +138,7 @@ public class AlumnoController implements Initializable{
         }
     }
 
-    /*metodo donde inicializaremos el controller, i¡donde introduciremos los datos del alumno y el curso que esta
+    /*metodo donde inicializaremos el controller, y donde introduciremos los datos del alumno y el curso que esta
     * y tambien la tabla donde se veran los alumnos agregados*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {

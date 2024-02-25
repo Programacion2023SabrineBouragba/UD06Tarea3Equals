@@ -62,7 +62,9 @@
                   <Insets bottom="20.0" left="50.0" />
                </VBox.margin>
             </TextField>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <Label layoutX="100.0" layoutY="241.0" text="Sueldo" translateX="80.0" />
+            <TextField fx:id="tfSueldo" maxHeight="30.0" maxWidth="100.0" prefHeight="0.0" promptText="Sueldo" translateX="50.0" />
+            <HBox prefHeight="41.0" prefWidth="222.0">
                <children>
                   <Button fx:id="btGuardar" mnemonicParsing="false" onAction="#onClickGuardar" text="Guardar">
                      <HBox.margin>
@@ -83,9 +85,10 @@
       </VBox>
       <TableView fx:id="tvProfesores" maxHeight="400.0" maxWidth="379.0" onMouseClicked="#onClickTvProfesores" prefHeight="400.0" prefWidth="376.0">
         <columns>
-          <TableColumn fx:id="tcDni" prefWidth="112.00005948543549" text="DNI" />
-          <TableColumn fx:id="tcNombre" minWidth="20.0" prefWidth="185.59992218017578" text="Nombre" />
-            <TableColumn fx:id="tcEdad" prefWidth="77.60003662109375" text="Edad" />
+          <TableColumn fx:id="tcDni" prefWidth="114.39996182918549" text="DNI" />
+          <TableColumn fx:id="tcNombre" minWidth="20.0" prefWidth="132.00000762939453" text="Nombre" />
+            <TableColumn fx:id="tcEdad" prefWidth="64.7999267578125" text="Edad" />
+            <TableColumn fx:id="tcSueldo" prefWidth="65.5999755859375" text="Sueldo" />
         </columns>
       </TableView>
    </children>

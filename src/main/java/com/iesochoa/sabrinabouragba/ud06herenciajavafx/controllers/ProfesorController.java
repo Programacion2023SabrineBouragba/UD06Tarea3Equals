@@ -1,7 +1,6 @@
 package com.iesochoa.sabrinabouragba.ud06herenciajavafx.controllers;
 
 import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Profesor;
-import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Curso;
 import com.iesochoa.sabrinabouragba.ud06herenciajavafx.model.Persona;
 
 import javafx.collections.FXCollections;
@@ -13,26 +12,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ProfesorController implements Initializable{
 
-    @FXML
-    private Button btGuardar;
-    @FXML
-    private Button btBorrar;
-
-    @FXML
-    private ComboBox<String> cbCurso;
-
-    @FXML
-    private Label dni;
-
-    @FXML
-    private HBox hbDatos;
     @FXML
     private TableView<Profesor> tvProfesores;
 
@@ -44,6 +29,8 @@ public class ProfesorController implements Initializable{
 
     @FXML
     private TableColumn<Profesor, String> tcNombre;
+    @FXML
+    private TableColumn<Profesor, Integer> tcSueldo;
 
     @FXML
     private TextField tfDni;
@@ -53,9 +40,8 @@ public class ProfesorController implements Initializable{
 
     @FXML
     private TextField tfNombre;
-
     @FXML
-    private VBox vbIntroducir;
+    private TextField tfSueldo;
 
     private ObservableList<Profesor> listaProfesores;
 
@@ -105,7 +91,7 @@ public class ProfesorController implements Initializable{
         //comprobamos que el dni es correcto
         if (Persona.esCorrectoNIF(dni)){
             //creamos profesor provisional
-            Profesor profesor=new Profesor(dni, "", 0);
+            Profesor profesor=new Profesor(dni, "", 0, 1);
 
             //comprobamos que el dni profesor exista en lista
             if (listaProfesores.contains(profesor)){
@@ -142,6 +128,7 @@ public class ProfesorController implements Initializable{
             tfDni.setText(profesor.getDni());
             tfNombre.setText(profesor.getNombre());
             tfEdad.setText(String.valueOf(profesor.getEdad()));
+            tfSueldo.setText(String.valueOf(profesor.getSueldo()));
         }else {
             iniciaAlertaError("No hay Profesores aún.");
         }
@@ -185,6 +172,8 @@ public class ProfesorController implements Initializable{
         String dni= tfDni.getText();
         //guardar la edad
         String edadString= tfEdad.getText();
+        //guardar la edad
+        String sueldoString= tfSueldo.getText();
 
         //creamos el profesor inicialemnte null
         Profesor profesor=null;
@@ -211,27 +200,41 @@ public class ProfesorController implements Initializable{
                 tfNombre.requestFocus();
             }
 
-            //comprobamos que el campo no este vacio
-        }else if(edadString.isEmpty()|| edadString.matches("[a-zA-Z]+")){   //si esta vacio
-            if (edadString.isEmpty()){
-                tfEdad.requestFocus();
-                iniciaAlertaError("El campo Edad no puede estar vacío");
-            }else if (edadString.matches("[a-zA-Z]+")){
-                tfEdad.requestFocus();
-                iniciaAlertaError("El campo Edad no puede contener letras");
+
+        }else if(edadString.isEmpty()|| edadString.matches("[a-zA-Z]+")
+                    || sueldoString.isEmpty()|| sueldoString.matches("[a-zA-Z]+")){   //si esta vacio
+            if (edadString.isEmpty() || sueldoString.isEmpty()){
+                if (edadString.isEmpty()){
+                    tfEdad.requestFocus();
+                    iniciaAlertaError("El campo Edad no puede estar vacío");
+                }else{
+                    tfSueldo.requestFocus();
+                    iniciaAlertaError("El campo Sueldo no puede estar vacío");
+                }
+            }else if (edadString.matches("[a-zA-Z]+") || sueldoString.matches("[a-zA-Z]+")){
+                if (edadString.matches("[a-zA-Z]+")){
+                    tfEdad.requestFocus();
+                    iniciaAlertaError("El campo Edad no puede contener letras");
+                }else{
+                    tfSueldo.requestFocus();
+                    iniciaAlertaError("El campo Sueldo no puede contener letras");
+                }
             }
 
         }else{  //sino comproamos que sea entero(edad>0)
             try{    //bloque que controla excepciones
                 //pasar de string a int la edad
                 int edad= Integer.parseInt(tfEdad.getText());
+                //pasar de string a int la edad
+                int sueldo= Integer.parseInt(tfSueldo.getText());
                 //creamos el profesor con los datos itroducidos hasta ahora, ya que estan comprobados y bien
-                profesor= new Profesor(dni, nombre, edad);
+                profesor= new Profesor(dni, nombre, edad, sueldo);
             }catch (NumberFormatException e){   //si no se cumple la condicion de ser entero
                 //mensaje de error
-                iniciaAlertaError("El campo Edad no puede ser menor que 0");
+                iniciaAlertaError("El campo no puede ser menor que 0");
                 //foco en el campo edad
                 tfEdad.requestFocus();
+                tfSueldo.requestFocus();
             }
         }
         //devuelvo el profesor
@@ -241,12 +244,13 @@ public class ProfesorController implements Initializable{
     //metodo donde inicializamos la vista de la tabla de los alumnos que vamos creando
     private void iniciaTableView(){
         //iniciamos lista alumnos en la tabla
-        listaProfesores= FXCollections.observableArrayList();
+        //listaProfesores= FXCollections.observableArrayList();
 
         //asociamos las columnas con los datos indicando el nombre de la clase
         tcNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tcDni.setCellValueFactory(new PropertyValueFactory<>("dni"));
         tcEdad.setCellValueFactory(new PropertyValueFactory<>("edad"));
+        tcSueldo.setCellValueFactory(new PropertyValueFactory<>("sueldo"));
 
         //asociamos esta lista a la tabla
         tvProfesores.setItems(listaProfesores);
@@ -257,6 +261,7 @@ public class ProfesorController implements Initializable{
         tfEdad.clear();
         tfNombre.clear();
         tfDni.clear();
+        tfSueldo.clear();
     }
 
     /*metodo que sustituye o cambia la informacion del profesor*/

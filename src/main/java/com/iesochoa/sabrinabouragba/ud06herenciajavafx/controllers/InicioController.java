@@ -82,7 +82,7 @@ public class InicioController implements Initializable {
             FXMLLoader loader=new FXMLLoader(IESOchoaApplication.class.getResource("profesor-view.fxml"));
             Parent root=loader.load();
 
-            //creamos el controller, y cuando este se inicializa, le pasamos la lista de alumnos
+            //creamos el controller, y cuando este se inicializa, le pasamos la lista de profesores
             ProfesorController profesorController=loader.getController();
             profesorController.initialize(listaProfesores);
             Scene scene= new Scene(root);

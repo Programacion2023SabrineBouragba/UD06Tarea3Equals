@@ -4,8 +4,9 @@ public class Profesor extends Persona{
     private int sueldo=0;
 
     //constructor por defecto
-    public Profesor(String dni, String nombre, int edad) {
+    public Profesor(String dni, String nombre, int edad, int sueldo) {
         super(dni, nombre, edad);
+        this.sueldo=sueldo;
     }
 
     //getter y setter de sueldo
