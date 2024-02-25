@@ -234,7 +234,6 @@ public class ProfesorController implements Initializable{
                 iniciaAlertaError("El campo no puede ser menor que 0");
                 //foco en el campo edad
                 tfEdad.requestFocus();
-                tfSueldo.requestFocus();
             }
         }
         //devuelvo el profesor
